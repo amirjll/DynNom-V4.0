@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\\name{DNbuilder}\n\\alias{DNbuilder}\n\\title{\nShiny code for Dynamic Nomograms\n}\n\\description{\n  \\code{DNbuilder} is a generic function to build dynamic nomograms and provide the required scripts for deploying them on a server on the web such as the \\url{http://shinyapps.io}. \\code{DNbuilder} supports \\code{lm}, \\code{glm}, \\code{coxph} model objects.\n}\n\\usage{\nDNbuilder(model, data,\n       clevel = 0.95, covariate = c(\"slider\", \"numeric\"),\n       ptype = c(\"st\", \"1-st\"))\n}\n\\arguments{\n  \\item{model}{\n  an \\code{lm}, \\code{glm} or \\code{coxph} model object\n}\n  \\item{data}{\n  dataframe containing the accompanying data\n}\n  \\item{clevel}{\n  confidence level required\n}\n  \\item{covariate}{\n  The option to choose the type of covariate(s) input control widget for numeric values. If \"slider\" (the default) is chosen a shiny application with slider control widgets are used while if \"numeric\" is chosen numeric values input controls will be displayed.\n}\n  \\item{ptype}{\n  This plot type option relates to coxph objects only. If \"st\" (the default) is chosen, a plot of the estimated survivor function, S(t),  is displayed.  If \"1-st\" is chosen a plot of 1- S(t) is displayed.\n}\n}\n\\value{\n  A new folder in the current working directory called DynNomapp which contains all the required scripts to deploy this dynamic nomogram on a server on the web such as the \\url{http://shinyapps.io}. This folder includes \\code{ui.R}, \\code{server.R} and \\code{global.R} script files needed to build the application and \\code{dataset.rds} which is the accompanying dataset and a user guide text file called \\code{README.txt} which explains how to deploy the app using all these objects.\n}\n\\references{\nBanks, J. 2006. Nomograms. Encyclopedia of Statistical Sciences. 8. \\cr\nEasy web applications in R. \\url{http://shiny.rstudio.com}\n}\n\\author{\nAmirhossein Jalali, Alberto Alvarez-Iglesias, John Newell\n}\n\\seealso{\n\\link{lm}, \\link{glm}, \\link{coxph}, \\link{DynNom}, \\link{DynNom.lm}, \\link{DynNom.glm}, \\link{DynNom.coxph}\n}\n\\examples{\n\\dontrun{\n# simple linear regression models\nmodel1 <- lm(uptake ~ Plant + conc + Plant * conc, data = CO2)\nDNbuilder(model1, CO2)\n\n# Generalized regression models\ndata1 =as.data.frame(Titanic)\nmodel2 <- glm(Survived ~ Age + Class + Sex, data = data1, weights = Freq,\n              family = binomial(\"probit\"))\nDNbuilder(model2, data1, clevel = 0.9)\n\n# a proportional hazard model\ndata.kidney <- kidney\n# always make sure that the categorical variables are in a factor class\ndata.kidney$sex <- as.factor(data.kidney$sex)\nlevels(data.kidney$sex) <- c(\"male\", \"female\")\n\nmodel3 <- coxph(Surv(time, status) ~ age + sex + disease, data.kidney)\nDNbuilder(model3, data.kidney)\nDNbuilder(model3, data.kidney, ptype = \"1-st\")\n}\n\nif (interactive()) {\n# a poisson regression model\nmodel4 <- glm(event ~ mag + station + dist + accel, data = attenu, family = poisson)\nDynNom(model4, attenu, covariate = \"numeric\")\n}\n}\n\\keyword{ dynamic nomograms }\n\\keyword{ individual prediction }\n\\keyword{ shiny }\n",
+    "created" : 1481726794148.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3640425477",
+    "id" : "740C53FB",
+    "lastKnownWriteTime" : 1481726866,
+    "last_content_update" : 1481726866848,
+    "path" : "C:/Users/Amir/Dropbox/Projects/DynNom project/DynNom V4.0/DynNom/man/DNbuilder.Rd",
+    "project_path" : "man/DNbuilder.Rd",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_doc"
+}
